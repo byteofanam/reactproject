@@ -1,32 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-const Header=()=>{
-    return(
-        <div className="header">
-        <div className="logo">
-            <img src="https://imgs.search.brave.com/xTREUlVhua-yApI7zfSiGOJEzIxM08tp9bvDAH6FV_g/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS12/ZWN0b3IvZnJlc2gt/Zm9vZC1sb2dvLWRl/c2lnbi10ZW1wbGF0/ZS0yNjBudy0xMDY5/NDQ5Mjc4LmpwZw"></img>
-        </div>
-        <div className="nav-items">
-            <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Contact</li>
-                <li>Cart</li>
-            </ul>
-        </div>
-    </div>
-    )
-}
-const FoodTemplate =({name,cuisine,avgRating,imageId,cloudinaryBaseUrl})=>{
-    return(
-        <div className="restaurantCard">
-            <img src={cloudinaryBaseUrl+imageId}/>
-            <h3>{name}</h3>
-            <h3>Cuisine: {cuisine}</h3>
-            <h4>Rating: {avgRating}</h4>
-        </div>
-    )
-}
 const restaurantList = [
   {
     id: "1003414",
@@ -105,21 +76,17 @@ const restaurantList = [
       avgRating: 4.4,
   },
   {
-    id: "151518",
-    name: "Bakery World",
-      cloudinaryImageId: "mt2aggiscfl3yviatwng",
-      locality: "Parasia Road",
-      areaName: "Parasia Road",
-      id: "151518",
-      name: "Bakery World",
-      cloudinaryImageId: "mt2aggiscfl3yviatwng",
-      locality: "Parasia Road",
-      areaName: "Parasia Road",
-      costForTwo: "₹250 for two",
-      cuisines: ["Bakery", "Ice Cream", "Snacks", "Beverages"],
-      avgRating: 4.3,
-      isOpen: true,
-  },
+  id: "151518",
+  name: "Bakery World",
+  cloudinaryImageId: "mt2aggiscfl3yviatwng",
+  locality: "Parasia Road",
+  areaName: "Parasia Road",
+  costForTwo: "₹250 for two",
+  cuisines: ["Bakery", "Ice Cream", "Snacks", "Beverages"],
+  avgRating: 4.3,
+  isOpen: true,
+},
+
   {
     id: "1209158",
       name: "Trio Cafe",
@@ -134,31 +101,4 @@ const restaurantList = [
       
   },
 ];
-const cloudinaryBaseUrl = "https://media-assets.swiggy.com/swiggy/image/upload/";
-const Body=()=>{
-    return(
-        <div className="container">
-            {restaurantList.map((item)=>(
-                <FoodTemplate
-                  key={item.id}
-                  name={item.name}
-                  cuisine={item.cuisines}
-                  avgRating={item.avgRating}
-                  imageId={item.cloudinaryImageId}
-                  cloudinaryBaseUrl={cloudinaryBaseUrl}
-                />
-            ))}
-        </div>
-    )
-}
-const App = () => {
-  return (
-    <>
-      <Header />
-      <Body />
-    </>
-  );
-};
-
-const root=ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App/>);
+export default restaurantList;
