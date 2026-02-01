@@ -1,5 +1,6 @@
 import restaurantList from "../utils/mockData";
 import {CLOUDINARY_BASE_URL} from "../utils/constants";
+import {useState} from "react";
 const FoodTemplate =({name,cuisine,avgRating,imageId,cloudinaryBaseUrl })=>{
     return(
         <div className="restaurantCard">
@@ -11,9 +12,22 @@ const FoodTemplate =({name,cuisine,avgRating,imageId,cloudinaryBaseUrl })=>{
     );
 };
 const Body=()=>{
+    //local state variable
+    let [listofRestaurants, setListofRestaurants]= useState(restaurantList);
     return(
-        <div className="container">
-            {restaurantList.map((item)=>(
+        <div className="body">
+            <div className="filter">
+                <button className="filter-btn" 
+                onClick={()=>{
+                    const filteredList = listofRestaurants.filter(
+                        (item)=>item.avgRating>4
+                    );
+                    setListofRestaurants(filteredList);
+                }}
+                >Top Rated Restaurants</button>
+            </div>
+            <div className="container">
+            {listofRestaurants.map((item)=>(
                 <FoodTemplate
                   key={item.id}
                   name={item.name}
@@ -23,6 +37,7 @@ const Body=()=>{
                   cloudinaryBaseUrl={CLOUDINARY_BASE_URL}
                 />
             ))}
+        </div>
         </div>
     );
 };
