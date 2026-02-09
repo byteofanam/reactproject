@@ -37,8 +37,151 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+/* Filter and Search Section */
+.filter{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+.search-box{
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 250px;
+    transition: border-color 0.3s;
+}
+
+.search-box:focus{
+    outline: none;
+    border-color: #4CAF50;
+}
+
 .filter-btn{
-    margin: 10px;
-    padding: 5px;
+    padding: 10px 20px;
     cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn:hover{
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.filter-btn:active{
+    transform: translateY(0px);
+}
+
+.reset-btn{
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 2px solid #f44336;
+    border-radius: 6px;
+    background-color: white;
+    color: #f44336;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover{
+    background-color: #f44336;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Shimmer Loading Effect */
+.shimmer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.shimmer-card {
+    width: 250px;
+    height: 350px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.shimmer-img {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.shimmer-text {
+    height: 20px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Error State */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    text-align: center;
+}
+
+.error-container h2 {
+    color: #f44336;
+    margin-bottom: 10px;
+}
+
+.error-container p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.retry-btn {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.retry-btn:hover {
+    background-color: #1976D2;
 }
