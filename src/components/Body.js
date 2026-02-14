@@ -3,13 +3,10 @@ import { CLOUDINARY_BASE_URL } from "../utils/constants";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
-const FoodTemplate = ({ name, cuisine, avgRating, imageId, cloudinaryBaseUrl, }) => {
+const FoodTemplate = ({name,cuisine,avgRating,imageId,cloudinaryBaseUrl,}) => {
   return (
     <div className="restaurantCard">
-      <img
-        src={cloudinaryBaseUrl + imageId}
-        alt={name}
-      />
+      <img src={cloudinaryBaseUrl + imageId} alt={name} />
       <h3>{name}</h3>
       <h3>Cuisine: {cuisine.join(", ")}</h3>
       <h4>Rating: {avgRating}</h4>
@@ -21,9 +18,10 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchText, setSearchText] = useState("");
 
+  // Simulate API call
   useEffect(() => {
-    // Simulating API call with setTimeout
     const timer = setTimeout(() => {
       setListOfRestaurants(restaurantList);
       setFilteredRestaurants(restaurantList);
@@ -33,6 +31,13 @@ const Body = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const filtered = listOfRestaurants.filter((res) =>
+      res.info.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredRestaurants(filtered);
+  }, [searchText, listOfRestaurants]);
+
   const handleTopRated = () => {
     const filtered = listOfRestaurants.filter(
       (res) => res.info.avgRating > 4
@@ -40,17 +45,17 @@ const Body = () => {
     setFilteredRestaurants(filtered);
   };
 
-  if (loading) {
-    return <Shimmer />;
-  }
-
-  return (
+  return loading ? (  <Shimmer />) : (
     <div className="body">
       <div className="filter">
-        <button
-          className="filter-btn"
-          onClick={handleTopRated}
-        >
+        <input
+          type="text"
+          placeholder="Search for restaurants..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+
+        <button className="filter-btn" onClick={handleTopRated}>
           Top Rated Restaurants
         </button>
       </div>
