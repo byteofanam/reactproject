@@ -1,6 +1,7 @@
 import restaurantList from "../utils/mockData";
 import { CLOUDINARY_BASE_URL } from "../utils/constants";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 
 const FoodTemplate = ({ name, cuisine, avgRating, imageId, cloudinaryBaseUrl }) => {
@@ -70,14 +71,15 @@ const Body = () => {
 
       <div className="container">
         {filteredRestaurants.map((item) => (
-          <FoodTemplate
-            key={item.info.id}
-            name={item.info.name}
-            cuisine={item.info.cuisines}
-            avgRating={item.info.avgRating}
-            imageId={item.info.cloudinaryImageId}
-            cloudinaryBaseUrl={CLOUDINARY_BASE_URL}
-          />
+          <Link key={item.info.id} to={"/RestaurantMenu/" + item.info.id} style={{ textDecoration: "none", color: "inherit" }}>
+            <FoodTemplate
+              name={item.info.name}
+              cuisine={item.info.cuisines}
+              avgRating={item.info.avgRating}
+              imageId={item.info.cloudinaryImageId}
+              cloudinaryBaseUrl={CLOUDINARY_BASE_URL}
+            />
+          </Link>
         ))}
       </div>
     </div>
