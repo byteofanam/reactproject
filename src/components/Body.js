@@ -1,12 +1,15 @@
 import restaurantList from "../utils/mockData";
 import { CLOUDINARY_BASE_URL } from "../utils/constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Shimmer from "./Shimmer";
 
-const FoodTemplate = ({name,cuisine,avgRating,imageId,cloudinaryBaseUrl,}) => {
+const FoodTemplate = ({ name, cuisine, avgRating, imageId, cloudinaryBaseUrl }) => {
   return (
     <div className="restaurantCard">
-      <img src={cloudinaryBaseUrl + imageId} alt={name} />
+      <img
+        src={cloudinaryBaseUrl + imageId}
+        alt={name}
+      />
       <h3>{name}</h3>
       <h3>Cuisine: {cuisine.join(", ")}</h3>
       <h4>Rating: {avgRating}</h4>
@@ -17,8 +20,8 @@ const FoodTemplate = ({name,cuisine,avgRating,imageId,cloudinaryBaseUrl,}) => {
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Simulate API call
   useEffect(() => {
@@ -30,7 +33,7 @@ const Body = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
+  // Search filter
   useEffect(() => {
     const filtered = listOfRestaurants.filter((res) =>
       res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -45,7 +48,12 @@ const Body = () => {
     setFilteredRestaurants(filtered);
   };
 
-  return loading ? (  <Shimmer />) : (
+  const handleShowAll = () => {
+    setSearchText("");
+    setFilteredRestaurants(listOfRestaurants);
+  };
+
+  return loading ? (<Shimmer />) : (
     <div className="body">
       <div className="filter">
         <input

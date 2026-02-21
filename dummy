@@ -1,0 +1,95 @@
+import restaurantList from "../utils/mockData";
+import { CLOUDINARY_BASE_URL } from "../utils/constants";
+import { useState, useEffect } from "react";
+
+const FoodTemplate = ({
+  name,
+  cuisine,
+  avgRating,
+  imageId,
+  cloudinaryBaseUrl,
+}) => {
+  return (
+    <div className="restaurantCard">
+      <img
+        src={cloudinaryBaseUrl + imageId}
+        alt={name}
+      />
+      <h3>{name}</h3>
+      <h3>Cuisine: {cuisine.join(", ")}</h3>
+      <h4>Rating: {avgRating}</h4>
+    </div>
+  );
+};
+
+const Body = () => {
+  // // local state variables
+  // const [listofRestaurants, setListofRestaurants] = useState(restaurantList);
+
+  // useEffect(() => {
+  //   // API call disabled - Swiggy blocks all browser requests (CORS)
+  //   // fetchData();
+  // }, []);
+
+  // const fetchData = async () => {
+  //   try {
+  //     // Using a CORS proxy to bypass CORS restrictions
+  //     const data = await fetch(
+  //       "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  //     );
+  //     const json = await data.json();
+  //     console.log(json);
+
+  //     // SAFE API access
+  //     const restaurants =
+  //       json?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle
+  //         ?.restaurants || [];
+
+  //     // Only update if we got valid data from API
+  //     if (restaurants.length > 0) {
+  //       setListofRestaurants(restaurants);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     // Keep using mock data if fetch fails
+  //     console.log("Using mock data instead");
+  //   }
+  // };
+
+  // if(listofRestaurants.length === 0) {
+  //   return <h1>Loading...</h1>;
+  // }
+
+  return (
+    <div className="body">
+      <div className="filter">
+        <button
+          className="filter-btn"
+          onClick={() => {
+            const filteredList = restaurantList.filter(
+              (item) => item.info.avgRating > 4
+            );
+            restaurantList = filteredList;
+          }}
+        >
+          Top Rated Restaurants
+        </button>
+      </div>
+
+      <div className="container">
+        {restaurantList.map((item) => (
+          <FoodTemplate
+            key={item.info.id}
+            name={item.info.name}
+            cuisine={item.info.cuisines}
+            avgRating={item.info.avgRating}
+            imageId={item.info.cloudinaryImageId}
+            cloudinaryBaseUrl={CLOUDINARY_BASE_URL}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Body;
